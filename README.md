@@ -96,7 +96,9 @@ Ensure that you have the following on your machine before you start:
 a. Create a service account file called ```astracontrol-service-account.yaml```.
 Adjust the name and namespace as needed. If changes are made here, you should apply the same changes in the following steps.
 
-    ```astracontrol-service-account.yaml```
+    ```
+    astracontrol-service-account.yaml
+    ```
     ```
     apiVersion: v1
     kind: ServiceAccount
@@ -107,6 +109,8 @@ Adjust the name and namespace as needed. If changes are made here, you should ap
 
 b. Apply the service account:
 
-    ```kubectl apply -f astracontrol-service-account.yaml```
+```
+kubectl apply -f astracontrol-service-account.yaml
+```
 
 
