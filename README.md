@@ -32,7 +32,23 @@ Adjust the service account name as needed. The namespace kube-system is required
     kubectl apply -f astracontrol-service-account.yaml
     ```
 
-4. Create a **ClusterRoleBinding** file called **astracontrol-clusterrolebinding.yaml**.
+4. Create a ```ClusterRoleBinding``` file called ```astracontrol-clusterrolebinding.yaml```.
 
+    ```astracontrol-clusterrolebinding.yaml```
+    ```apiVersion: rbac.authorization.k8s.io/v1
+    kind: ClusterRoleBinding
+    metadata:
+      name: astra-admin-binding
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: cluster-admin
+    subjects:
+    - kind: ServiceAccount
+      name: astra-admin-account
+      namespace: kube-system
+    ```
 
+5. Apply the cluster role binding:
 
+    ```kubectl apply -f astracontrol-clusterrolebinding.yaml```
