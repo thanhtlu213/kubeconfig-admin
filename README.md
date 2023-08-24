@@ -13,15 +13,15 @@ Follow these instructions to create a kubeconfig file and permanent token secret
 2. Create a service account as follows:
 a. Create a service account file called ```astracontrol-service-account.yaml```.
 Adjust the service account name as needed. The namespace kube-system is required for these steps. If you change the service account name here, you should apply the same changes in the following steps.
-```
-astracontrol-service-account.yaml
-```
-```
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: astra-admin-account
-  namespace: kube-system
-```
+    ```
+    astracontrol-service-account.yaml
+    ```
+    ```
+    apiVersion: v1
+    kind: ServiceAccount
+    metadata:
+      name: astra-admin-account
+      namespace: kube-system
+    ```
 
 
