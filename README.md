@@ -15,7 +15,8 @@ Follow these instructions to create a kubeconfig file and permanent token secret
 2. Create a service account as follows:
 
     a. Create a service account file called ```astracontrol-service-account.yaml```.
-Adjust the service account name as needed. The namespace kube-system is required for these steps. If you change the service account name here, you should apply the same changes in the following steps.
+
+    Adjust the service account name as needed. The namespace kube-system is required for these steps. If you change the service account name here, you should apply the same changes in the following steps.
     ```
     astracontrol-service-account.yaml
     ```
@@ -118,9 +119,39 @@ Ensure that you have the following on your machine before you start:
         ```
 
     b. Apply the service account:
-    
     ```
     kubectl apply -f astracontrol-service-account.yaml
     ```
 
+2. Grant cluster admin permissions as follows:
 
+    a. Create a ClusterRoleBinding file called astracontrol-clusterrolebinding.yaml.
+    
+    Adjust any names and namespaces modified when creating the service account as needed.
+    ```
+    astracontrol-clusterrolebinding.yaml
+    ```
+    ```
+    apiVersion: rbac.authorization.k8s.io/v1
+    kind: ClusterRoleBinding
+    metadata:
+      name: astracontrol-admin
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: cluster-admin
+    subjects:
+    - kind: ServiceAccount
+      name: astracontrol-service-account
+      namespace: default    
+    ```
+
+    b. Apply the cluster role binding:
+    ```
+    kubectl apply -f astracontrol-clusterrolebinding.yaml
+    ```
+
+3. List the service account secrets, replacing <context> with the correct context for your installation:
+    ```
+    kubectl get serviceaccount astracontrol-service-account --context <context> --namespace default -o json
+    ```
