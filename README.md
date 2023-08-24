@@ -34,7 +34,9 @@ Adjust the service account name as needed. The namespace kube-system is required
 
 4. Create a ```ClusterRoleBinding``` file called ```astracontrol-clusterrolebinding.yaml```.
 
-    ```astracontrol-clusterrolebinding.yaml```
+    ```
+    astracontrol-clusterrolebinding.yaml
+    ```
     ```apiVersion: rbac.authorization.k8s.io/v1
     kind: ClusterRoleBinding
     metadata:
@@ -51,12 +53,15 @@ Adjust the service account name as needed. The namespace kube-system is required
 
 5. Apply the cluster role binding:
 
-    ```kubectl apply -f astracontrol-clusterrolebinding.yaml```
+    ```
+    kubectl apply -f astracontrol-clusterrolebinding.yaml
+    ```
 
 6. Create a service account token secret file called ```astracontrol-secret.yaml```.
 
-    ```astracontrol-secret.yaml```
-
+    ```
+    astracontrol-secret.yaml
+    ```
     ```
     apiVersion: v1
     kind: Secret
@@ -70,11 +75,15 @@ Adjust the service account name as needed. The namespace kube-system is required
 
 7. Apply the token secret:
 
-    ```kubectl apply -f astracontrol-secret.yaml```
+    ```
+    kubectl apply -f astracontrol-secret.yaml
+    ```
 
 8. Retrieve the token secret:
 
-    ```kubectl get secret astra-admin-account -n kube-system -o jsonpath='{.data.token}' | base64 -d```
+    ```
+    kubectl get secret astra-admin-account -n kube-system -o jsonpath='{.data.token}' | base64 -d
+    ```
 
 9. Replace the user section of the AWS EKS kubeconfig file with the token, as shown in the following example:
 
