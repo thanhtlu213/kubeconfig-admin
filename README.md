@@ -102,24 +102,25 @@ Ensure that you have the following on your machine before you start:
 
 ### Steps
 1. Create a service account as follows:
-a. Create a service account file called ```astracontrol-service-account.yaml```.
-Adjust the name and namespace as needed. If changes are made here, you should apply the same changes in the following steps.
 
-    ```
-    astracontrol-service-account.yaml
-    ```
-    ```
-    apiVersion: v1
-    kind: ServiceAccount
-    metadata:
-      name: astracontrol-service-account
-      namespace: default
-    ```
+    a. Create a service account file called ```astracontrol-service-account.yaml```.
+    Adjust the name and namespace as needed. If changes are made here, you should apply the same changes in the following steps.
 
-b. Apply the service account:
+        ```
+        astracontrol-service-account.yaml
+        ```
+        ```
+        apiVersion: v1
+        kind: ServiceAccount
+        metadata:
+          name: astracontrol-service-account
+          namespace: default
+        ```
 
-```
-kubectl apply -f astracontrol-service-account.yaml
-```
+    b. Apply the service account:
+    
+    ```
+    kubectl apply -f astracontrol-service-account.yaml
+    ```
 
 
