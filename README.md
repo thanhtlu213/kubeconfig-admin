@@ -9,6 +9,7 @@ Follow these instructions to create a kubeconfig file and permanent token secret
 
 ### Steps
 1. Follow the instructions in the Amazon documentation to generate a kubeconfig file:
+
 <a href="https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html" target="_blank"> Creating or updating a kubeconfig file for an Amazon EKS cluster </a>
 
 2. Create a service account as follows:
