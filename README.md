@@ -8,33 +8,32 @@ You can add a cluster to Astra Control Service using a kubeconfig file. Dependin
 Follow these instructions to create a kubeconfig file and permanent token secret for Amazon EKS clusters. A permanent token secret is required for clusters hosted in EKS.
 
 ### Steps
-#### 1. Follow the instructions in the Amazon documentation to generate a kubeconfig file:
+1. Follow the instructions in the Amazon documentation to generate a kubeconfig file:
 
-[Creating or updating a kubeconfig file for an Amazon EKS cluster](https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html)
+    [Creating or updating a kubeconfig file for an Amazon EKS cluster](https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html)
 
-### 2. Create a service account as follows:
+2. Create a service account as follows:
 
-a. Create a service account file called ```astracontrol-service-account.yaml```.
+    a. Create a service account file called ```astracontrol-service-account.yaml```.
 
-Adjust the service account name as needed. The namespace kube-system is required for these steps. If you change the service account name here, you should apply the same changes in the following steps.
+    Adjust the service account name as needed. The namespace kube-system is required for these steps. If you change the service account name here, you should apply the same changes in the following steps.
+    ```
+    astracontrol-service-account.yaml
+    ```
+    ```
+    apiVersion: v1
+    kind: ServiceAccount
+    metadata:
+      name: astra-admin-account
+      namespace: kube-system
+    ```
 
-```
-astracontrol-service-account.yaml
-```
-```
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: astra-admin-account
-  namespace: kube-system
-```
-
-#### 3. Apply the service account:
+3. Apply the service account:
     ```
     kubectl apply -f astracontrol-service-account.yaml
     ```
 
-#### 4. Create a ```ClusterRoleBinding``` file called ```astracontrol-clusterrolebinding.yaml```.
+4. Create a ```ClusterRoleBinding``` file called ```astracontrol-clusterrolebinding.yaml```.
 
     ```
     astracontrol-clusterrolebinding.yaml
@@ -53,13 +52,13 @@ metadata:
       namespace: kube-system
     ```
 
-#### 5. Apply the cluster role binding:
+5. Apply the cluster role binding:
 
     ```
     kubectl apply -f astracontrol-clusterrolebinding.yaml
     ```
 
-#### 6. Create a service account token secret file called ```astracontrol-secret.yaml```.
+6. Create a service account token secret file called ```astracontrol-secret.yaml```.
 
     ```
     astracontrol-secret.yaml
@@ -75,19 +74,19 @@ metadata:
     type: kubernetes.io/service-account-token
     ```
 
-#### 7. Apply the token secret:
+7. Apply the token secret:
 
     ```
     kubectl apply -f astracontrol-secret.yaml
     ```
 
-#### 8. Retrieve the token secret:
+8. Retrieve the token secret:
 
     ```
     kubectl get secret astra-admin-account -n kube-system -o jsonpath='{.data.token}' | base64 -d
     ```
 
-#### 9. Replace the user section of the AWS EKS kubeconfig file with the token, as shown in the following example:
+9. Replace the user section of the AWS EKS kubeconfig file with the token, as shown in the following example:
 
     ```
     user:
@@ -103,10 +102,9 @@ Ensure that you have the following on your machine before you start:
 - An active kubeconfig with cluster admin rights for the active context
 
 ### Steps
-#### 1. Create a service account as follows:
+1. Create a service account as follows:
 
     a. Create a service account file called ```astracontrol-service-account.yaml```.
-
     Adjust the name and namespace as needed. If changes are made here, you should apply the same changes in the following steps.
 
         ```
@@ -125,7 +123,7 @@ Ensure that you have the following on your machine before you start:
     kubectl apply -f astracontrol-service-account.yaml
     ```
 
-#### 2. Grant cluster admin permissions as follows:
+2. Grant cluster admin permissions as follows:
 
     a. Create a ClusterRoleBinding file called astracontrol-clusterrolebinding.yaml.
     
@@ -153,7 +151,7 @@ Ensure that you have the following on your machine before you start:
     kubectl apply -f astracontrol-clusterrolebinding.yaml
     ```
 
-### 3. List the service account secrets, replacing ```context``` with the correct context for your installation:
+3. List the service account secrets, replacing ```context``` with the correct context for your installation:
     ```
     kubectl get serviceaccount astracontrol-service-account --context <context> --namespace default -o json
     ```
@@ -167,7 +165,7 @@ Ensure that you have the following on your machine before you start:
     ```
     The indices for each element in the ```secrets``` array begin with 0. In the above example, the index for ```astracontrol-service-account-dockercfg-vhz87``` would be 0 and the index for ```astracontrol-service-account-token-r59kr``` would be 1. In your output, make note of the index for the service account name that has the word "token" in it.
 
-#### 4. Generate the kubeconfig as follows:
+4. Generate the kubeconfig as follows:
 
     a. Create a ```create-kubeconfig.sh``` file. Replace ```TOKEN_INDEX``` in the beginning of the following script with the correct value.
     ```
@@ -240,9 +238,10 @@ Ensure that you have the following on your machine before you start:
     source create-kubeconfig.sh
     ```
 
-#### 5. (Optional) Rename the kubeconfig to a meaningful name for your cluster. Protect your cluster credential.
+
+5. (Optional) Rename the kubeconfig to a meaningful name for your cluster. Protect your cluster credential.
 
     ```
     chmod 700 create-kubeconfig.sh
-    mv kubeconfig-sa YOUR_CLUSTER_NAME_kubeconfig    
+    mv kubeconfig-sa YOUR_CLUSTER_NAME_kubeconfig
     ```
