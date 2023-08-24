@@ -2,7 +2,7 @@
 
 You can add a cluster to Astra Control Service using a kubeconfig file. Depending on the type of cluster you want to add, you might need to manually create a kubeconfig file for your cluster using specific steps.
 - Create a kubeconfig file for Amazon EKS clusters
-- reate a kubeconfig file for other types of clusters
+- Create a kubeconfig file for other types of clusters
 
 ## Create a kubeconfig file for Amazon EKS clusters
 Follow these instructions to create a kubeconfig file and permanent token secret for Amazon EKS clusters. A permanent token secret is required for clusters hosted in EKS.
